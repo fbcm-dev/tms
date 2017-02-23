@@ -22,9 +22,7 @@ class CreateMembersTable extends Migration
             $table->foreign('created_by')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade')
-                ->nullable()
-                ->change();
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
