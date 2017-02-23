@@ -43,6 +43,16 @@ class User extends Authenticatable
 		$this->notify(new ResetPasswordNotification($token));
 	}
 
+
+    /**
+     *
+     * Generates username
+     *
+     * @param $firstName
+     * @param $middleName
+     * @param $lastName
+     * @return string
+     */
     protected function generateUsername($firstName, $middleName, $lastName){
         $expFirstName = explode(' ', $firstName);
         $firstNameInitial = "";
