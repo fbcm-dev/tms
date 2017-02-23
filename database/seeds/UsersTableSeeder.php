@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use TMS\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,6 +15,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $role = Role::create(['name' => 'superuser']);
+        $permission = Permission::create(['name' => 'superuser']);
+
         $users  = [
             [
                 'name' => 'Paul Phillip Villarosa',
@@ -25,7 +31,13 @@ class UsersTableSeeder extends Seeder
             ]
         ];
         foreach ($users as $user) {
-            DB::table('users')->insert($user);
+            $u = new User;
+            $u->name = $user['name'];
+            $u->email = $user['email'];
+            $u->password = bcrypt('secret');
+            $u->save();
+
+            $u->assignRole('superuser');
         }
     }
 }
