@@ -42,4 +42,18 @@ class User extends Authenticatable
 	{
 		$this->notify(new ResetPasswordNotification($token));
 	}
+
+    protected function generateUsername($firstName, $middleName, $lastName){
+        $expFirstName = explode(' ', $firstName);
+        $firstNameInitial = "";
+
+        foreach ($expFirstName as $key) {
+            $tempFirstNameInitial = substr($key, 0, 1);
+            $firstNameInitial .= $tempFirstNameInitial;
+        }
+
+        $middleNameInitial = substr($middleName, 0, 1);
+        $username = strtolower($lastName) .  $firstNameInitial . $middleNameInitial;
+        return strtolower($username);
+    }
 }
