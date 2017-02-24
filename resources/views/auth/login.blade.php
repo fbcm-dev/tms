@@ -9,16 +9,21 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                        
+                        @if ($errors->has('error'))
+                            <div class="alert alert-danger text-center">
+                                <strong>{{ $errors->first('error') }}</strong>
+                            </div>
+                        @endif
+                        <div class="form-group{{ $errors->has('input') ? ' has-error' : '' }}">
+                            <label for="input" class="col-md-4 control-label">E-Mail Address / Username</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="input" type="text" class="form-control" name="login" value="{{ old('input') }}" require autofocus>
 
-                                @if ($errors->has('email'))
+                                @if ($errors->has('input'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('input') }}</strong>
                                     </span>
                                 @endif
                             </div>
