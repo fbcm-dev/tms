@@ -17,4 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::group(['prefix' => config('backpack.base.route_prefix')], function () {
+	Route::get('logout', [
+		'uses'=> 'Auth\LoginController@logout',
+		'as' => 'auth.logout',
+	]);
+});
