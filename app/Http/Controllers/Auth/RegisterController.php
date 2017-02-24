@@ -2,7 +2,7 @@
 
 namespace TMS\Http\Controllers\Auth;
 
-use TMS\User;
+use TMS\Models\User;
 use TMS\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,10 +64,10 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            //'username' => User::generateUsername($data['name']),
+            'username' => User::generateUsername($data['name']),
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            //'password' => bcrypt(User::generateUsername())
+            //'password' => bcrypt($data['password'])
+            'password' => bcrypt(User::generatePassword())
         ]);
     }
 }

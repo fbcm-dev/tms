@@ -20,7 +20,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password',
+		'name', 'username', 'email', 'password',
 	];
 
 	/**
@@ -50,7 +50,7 @@ class User extends Authenticatable
      * @param $name
      * @return string
      */
-    function generateUsername($name){
+    protected function generateUsername($name){
         $expFirstName = explode(' ', $name);
         $last_name = end($expFirstName);
         $nameInitial = $last_name;
@@ -71,7 +71,7 @@ class User extends Authenticatable
      *
      * @return string
      */
-    function generatePassword(){
+    protected function generatePassword(){
         $string_set = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz^!@$';
         $password = '';
         for ($i=0; $i <= 6; $i++) {
