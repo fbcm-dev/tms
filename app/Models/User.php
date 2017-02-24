@@ -53,7 +53,7 @@ class User extends Authenticatable
      * @param $lastName
      * @return string
      */
-    protected function generateUsername($firstName, $middleName, $lastName){
+    public static function generateUsername($firstName, $middleName = null, $lastName){
         $expFirstName = explode(' ', $firstName);
         $firstNameInitial = "";
 
