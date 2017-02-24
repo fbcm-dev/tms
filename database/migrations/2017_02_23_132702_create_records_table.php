@@ -19,8 +19,7 @@ class CreateRecordsTable extends Migration
 
             $table->foreign('member_id')
                 ->references('id')
-                ->on('records')
-                ->onDelete('cascade');
+                ->on('records');
 
             $table->enum('service_type', ['sunday-school', 'mid-morning', 'early', 'vesper', 'special', 'prayer-meeting']);
             $table->date('for_date');
