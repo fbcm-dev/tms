@@ -20,7 +20,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password',
+		'name', 'username', 'email', 'password',
 	];
 
 	/**
@@ -43,27 +43,42 @@ class User extends Authenticatable
 		$this->notify(new ResetPasswordNotification($token));
 	}
 
-
     /**
      *
      * Generates username
      *
-     * @param $firstName
-     * @param $middleName
-     * @param $lastName
+     * @param $name
      * @return string
      */
-    public static function generateUsername($firstName, $middleName = null, $lastName){
-        $expFirstName = explode(' ', $firstName);
-        $firstNameInitial = "";
+    function generateUsername($name){
+        $expFirstName = explode(' ', $name);
+        $last_name = end($expFirstName);
+        $nameInitial = $last_name;
 
         foreach ($expFirstName as $key) {
-            $tempFirstNameInitial = substr($key, 0, 1);
-            $firstNameInitial .= $tempFirstNameInitial;
+            if($key != $last_name){
+                $tempNameInitial = substr($key, 0, 1);
+                $nameInitial .= $tempNameInitial;
+            }
         }
 
-        $middleNameInitial = substr($middleName, 0, 1);
-        $username = strtolower($lastName) .  $firstNameInitial . $middleNameInitial;
-        return strtolower($username);
+        return strtolower($nameInitial);
+    }
+
+    /**
+     *
+     * Generate 7 digits password
+     *
+     * @return string
+     */
+    function generatePassword(){
+        $string_set = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz^!@$';
+        $password = '';
+        for ($i=0; $i <= 6; $i++) {
+            $rand = rand(1, 62);
+            $shuffle = str_shuffle(substr($string_set, $rand, ($rand-$i) ));
+            $password .= substr($shuffle, 1, 1);
+        }
+        return $password;
     }
 }
