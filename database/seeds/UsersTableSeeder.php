@@ -22,22 +22,16 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Paul Phillip Villarosa',
                 'email' => 'ppvillarosa@gmail.com',
-                'password' => bcrypt('secret'),
-                'username' => User::generateUsername('Paul Phillip', 'Nava', 'Villarosa')
             ],
             [
                 'name' => 'Jeiel Araneta',
                 'email' => 'jeielaraneta@gmail.com',
-                'password' => bcrypt('secret'),
-                'username' => User::generateUsername('Jeiel', '', 'Araneta')
             ]
         ];
         foreach ($users as $user) {
             $u = new User;
             $u->name = $user['name'];
-            $u->username = $user['username'];
             $u->email = $user['email'];
-            $u->password = bcrypt('secret');
             $u->save();
 
             $u->assignRole('superuser');

@@ -14,6 +14,13 @@ class UserObserver
 	
 	public function created(User $user)
 	{
+		$user->hashPassword();
+	}
+
+	public function creating(User $user)
+	{
+		$user->generateCredentials();
+		
 		Mail::to($user->email)->send(new UserCreated($user));
 	}
 }

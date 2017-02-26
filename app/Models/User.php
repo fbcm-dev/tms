@@ -50,7 +50,12 @@ class User extends Authenticatable
      * @param $name
      * @return string
      */
-    protected function generateUsername($name){
+    protected function generateUsername($name = null)
+    {
+        if ($name == null) {
+            $name = $this->name;
+        }
+
         $expFirstName = explode(' ', $name);
         $last_name = end($expFirstName);
         $nameInitial = $last_name;
@@ -71,7 +76,8 @@ class User extends Authenticatable
      *
      * @return string
      */
-    protected function generatePassword(){
+    protected function generatePassword()
+    {
         $string_set = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz^!@$';
         $password = '';
         for ($i=0; $i <= 6; $i++) {
@@ -81,4 +87,30 @@ class User extends Authenticatable
         }
         return $password;
     }
+
+    /**
+     *
+     * generate credentials - Username and Password
+     *
+     * @return string
+     */
+    public function generateCredentials()
+    {
+        $this->attributes['password'] = $this->generatePassword();
+        $this->attributes['username'] = $this->generateUsername();
+    }
+
+    /**
+     *
+     * Hash password
+     *
+     * @return string
+     */
+    public function hashPassword()
+    {
+        $this->attributes['password'] = bcrypt($this->password);
+        $this->save();
+    }
+
+
 }
