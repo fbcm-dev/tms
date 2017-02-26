@@ -10,14 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('auth.login');
+})->middleware('guest');
+
+Route::get('/home', function (){
+    return redirect('/admin');
 });
 
-Auth::routes();
-
 Route::group(['prefix' => config('backpack.base.route_prefix')], function () {
+
 	Route::get('logout', [
 		'uses'=> 'Auth\LoginController@logout',
 		'as' => 'auth.logout',
