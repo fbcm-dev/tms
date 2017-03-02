@@ -26,4 +26,6 @@ Route::group(['prefix' => config('backpack.base.route_prefix')], function () {
 		'uses'=> 'Auth\LoginController@logout',
 		'as' => 'auth.logout',
 	]);
+
+    CRUD::resource('member', 'Admin\MemberCrudController');
 });
