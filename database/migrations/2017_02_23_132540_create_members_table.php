@@ -18,7 +18,7 @@ class CreateMembersTable extends Migration
             $table->string('code', 45)->nullable();
             $table->string('first_name', 45);
             $table->string('organization', 45);
-            $table->integer('created_by')->unsigned();
+            $table->integer('created_by')->unsigned()->nullable();
 
             $table->foreign('created_by')
                 ->references('id')

@@ -3,6 +3,10 @@
 namespace TMS\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use TMS\Http\Controllers\Controller;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 use TMS\Http\Requests\MemberRequest as StoreRequest;
@@ -22,6 +26,7 @@ class MemberCrudController extends CrudController
         $this->crud->setModel("TMS\Models\Member");
         $this->crud->setRoute("admin/member");
         $this->crud->setEntityNameStrings('member', 'members');
+        $this->crud->enableAjaxTable();
 
         /*
 		|--------------------------------------------------------------------------
@@ -33,7 +38,7 @@ class MemberCrudController extends CrudController
         $this->crud->addField(
             [
                 'name'  => 'first_name', // DB column name (will also be the name of the input)
-                'label' => 'Name', // the human-readable label for the input
+                'label' => 'Name', // the human-readable label for the input Auth::id()
                 'type'  => 'text' // the field type (text, number, select, checkbox, etc)
             ]
         );
@@ -134,6 +139,7 @@ class MemberCrudController extends CrudController
 
 	public function store(StoreRequest $request)
 	{
+        $this->crud->hasAccessOrFail('create');
 		// your additional operations before save here
         $redirect_location = parent::storeCrud();
         // your additional operations after save here
