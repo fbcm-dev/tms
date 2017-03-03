@@ -101,13 +101,8 @@ class UserCrudController extends BaseCrudController
     {
         $this->crud->hasAccessOrFail('create');
 
-        // insert item in the db
-        if ($request->input('password')) {
-            $item = $this->crud->create(\Request::except(['redirect_after_save']));
-            $item->save();
-        } else {
-            $item = $this->crud->create(\Request::except(['redirect_after_save', 'password']));
-        }
+        $item = $this->crud->create(\Request::except(['redirect_after_save', 'password']));
+        $item->save();
 
         // show a success message
         \Alert::success(trans('backpack::crud.insert_success'))->flash();
