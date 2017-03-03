@@ -16,16 +16,24 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 
-Route::get('/home', function (){
+Route::get('/home', function () {
     return redirect('/admin');
 });
 
 Route::group(['prefix' => config('backpack.base.route_prefix')], function () {
 
-	Route::get('logout', [
-		'uses'=> 'Auth\LoginController@logout',
-		'as' => 'auth.logout',
-	]);
+    Route::get('logout', [
+        'uses'=> 'Auth\LoginController@logout',
+        'as' => 'auth.logout',
+    ]);
+
+    Route::get('/user/create', [
+        'uses' => 'Auth\UserCrudController@create',
+    ]);
+
+    Route::post('/user', [
+        'uses' => 'Auth\UserCrudController@store',
+    ]);
 
     CRUD::resource('member', 'Admin\MemberCrudController');
 });

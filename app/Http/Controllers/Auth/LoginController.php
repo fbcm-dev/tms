@@ -48,13 +48,10 @@ class LoginController extends Controller
         $field = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         $request->merge([$field => $request->input('login')]);
 
-        if (Auth::attempt($request->only($field, 'password')))
-        {
+        if (Auth::attempt($request->only($field, 'password'))) {
             return redirect('/admin');
         }
         
         return back()->withErrors(['error' => 'These credentials do not match our records.']);
-
-
     }
 }
