@@ -20,7 +20,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password',
+		'name', 'username', 'email', 'password',
 	];
 
 	/**
@@ -43,27 +43,74 @@ class User extends Authenticatable
 		$this->notify(new ResetPasswordNotification($token));
 	}
 
-
     /**
      *
      * Generates username
      *
-     * @param $firstName
-     * @param $middleName
-     * @param $lastName
+     * @param $name
      * @return string
      */
-    protected function generateUsername($firstName, $middleName, $lastName){
-        $expFirstName = explode(' ', $firstName);
-        $firstNameInitial = "";
-
-        foreach ($expFirstName as $key) {
-            $tempFirstNameInitial = substr($key, 0, 1);
-            $firstNameInitial .= $tempFirstNameInitial;
+    protected function generateUsername($name = null)
+    {
+        if ($name == null) {
+            $name = $this->name;
         }
 
-        $middleNameInitial = substr($middleName, 0, 1);
-        $username = strtolower($lastName) .  $firstNameInitial . $middleNameInitial;
-        return strtolower($username);
+        $expFirstName = explode(' ', $name);
+        $last_name = end($expFirstName);
+        $nameInitial = $last_name;
+
+        foreach ($expFirstName as $key) {
+            if($key != $last_name){
+                $tempNameInitial = substr($key, 0, 1);
+                $nameInitial .= $tempNameInitial;
+            }
+        }
+
+        return strtolower($nameInitial);
     }
+
+    /**
+     *
+     * Generate 7 digits password
+     *
+     * @return string
+     */
+    protected function generatePassword()
+    {
+        $string_set = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz^!@$';
+        $password = '';
+        for ($i=0; $i <= 6; $i++) {
+            $rand = rand(1, 62);
+            $shuffle = str_shuffle(substr($string_set, $rand, ($rand-$i) ));
+            $password .= substr($shuffle, 1, 1);
+        }
+        return $password;
+    }
+
+    /**
+     *
+     * generate credentials - Username and Password
+     *
+     * @return string
+     */
+    public function generateCredentials()
+    {
+        $this->attributes['password'] = $this->generatePassword();
+        $this->attributes['username'] = $this->generateUsername();
+    }
+
+    /**
+     *
+     * Hash password
+     *
+     * @return string
+     */
+    public function hashPassword()
+    {
+        $this->attributes['password'] = bcrypt($this->password);
+        $this->save();
+    }
+
+
 }

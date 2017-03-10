@@ -29,6 +29,7 @@
 					  	<li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 					</ul>
 			  	</li>
+				<li><a href="{{ url('admin/member') }}"><i class="fa fa-tag"></i> <span>Manage Members</span></a></li>
 
 			  	<!-- ======================================= -->
 			  	<li class="header">{{ trans('backpack::base.user') }}</li>

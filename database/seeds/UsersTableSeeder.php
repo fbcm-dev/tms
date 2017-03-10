@@ -19,19 +19,16 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Paul Phillip Villarosa',
                 'email' => 'ppvillarosa@gmail.com',
-                'password' => bcrypt('secret'),
             ],
             [
                 'name' => 'Jeiel Araneta',
                 'email' => 'jeielaraneta@gmail.com',
-                'password' => bcrypt('secret'),
             ]
         ];
         foreach ($users as $user) {
             $u = new User;
             $u->name = $user['name'];
             $u->email = $user['email'];
-            $u->password = bcrypt('secret');
             $u->save();
             echo "> User created: " . $user['name'] . " | ";
             $u->assignRole('superuser');
