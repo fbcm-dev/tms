@@ -15,9 +15,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create(['name' => 'superuser']);
-        $permission = Permission::create(['name' => 'superuser']);
-
         $users  = [
             [
                 'name' => 'Paul Phillip Villarosa',
@@ -33,8 +30,9 @@ class UsersTableSeeder extends Seeder
             $u->name = $user['name'];
             $u->email = $user['email'];
             $u->save();
-
+            echo "> User created: " . $user['name'] . " | ";
             $u->assignRole('superuser');
+            echo "Role assigned: superuser \n";
         }
     }
 }
