@@ -2,13 +2,15 @@
 
 namespace TMS\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Support\Facades\Auth;
 
 class Member extends Model
 {
     use CrudTrait;
-
+    use Notifiable;
      /*
 	|--------------------------------------------------------------------------
 	| GLOBAL VARIABLES
@@ -17,19 +19,41 @@ class Member extends Model
 
     protected $table = 'members';
     protected $primaryKey = 'id';
-    //public $timestamps = false;
-    // protected $guarded = ['id'];
+
     protected $fillable = [
         'code', 'first_name', 'organization', 'created_by'
     ];
-    // protected $hidden = [];
-    // protected $dates = [];
 
     /*
 	|--------------------------------------------------------------------------
 	| FUNCTIONS
 	|--------------------------------------------------------------------------
 	*/
+
+    /**
+     *
+     * Generates member code
+     *
+     * @param $name
+     * @return string
+     */
+    protected function generateMemberCode($name = null)
+    {
+        if ($name == null) $name = $this->first_name;
+
+        $expFirstName = explode(' ', $name);
+        $last_name = end($expFirstName);
+        $nameInitial = $last_name;
+
+        foreach ($expFirstName as $key) {
+            if($key != $last_name){
+                $tempNameInitial = substr($key, 0, 1);
+                $nameInitial .= $tempNameInitial;
+            }
+        }
+
+        return strtolower($nameInitial);
+    }
 
     /*
 	|--------------------------------------------------------------------------
@@ -54,4 +78,12 @@ class Member extends Model
 	| MUTATORS
 	|--------------------------------------------------------------------------
 	*/
+
+    public function setCodeAttribute(){
+        $this->attributes['code'] = $this->generateMemberCode();
+    }
+
+    public function setCreatedByAttribute(){
+        $this->attributes['created_by'] = Auth::user()->id;
+    }
 }

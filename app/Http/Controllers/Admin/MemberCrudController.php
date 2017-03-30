@@ -3,10 +3,6 @@
 namespace TMS\Http\Controllers\Admin;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use TMS\Http\Controllers\Controller;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 use TMS\Http\Requests\MemberRequest as StoreRequest;
@@ -69,6 +65,17 @@ class MemberCrudController extends CrudController
             'type' => 'Text'
         ]);
 
+        /*$this->crud->addColumn([
+            'name' => 'created_by', // The db column name
+            'label' => "Created By", // Table column heading
+            'type' => 'Text'
+        ]);*/
+
+        $this->crud->addColumn([ // n-n relationship (with pivot table)
+            'label'     => 'Created By', // Table column heading
+            'type'      => 'Text',
+            'name'      => 'id', // the method that defines the relationship in your Model
+        ]);
 
         //$this->crud->setLabel('first_name', 'Name');
         //$this->crud->setLabel('organization', 'Organization');
@@ -139,12 +146,11 @@ class MemberCrudController extends CrudController
 
 	public function store(StoreRequest $request)
 	{
-        $this->crud->hasAccessOrFail('create');
-		// your additional operations before save here
+	    $this->crud->hasAccessOrFail('create');
         $redirect_location = parent::storeCrud();
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+
+
 	}
 
 	public function update(UpdateRequest $request)

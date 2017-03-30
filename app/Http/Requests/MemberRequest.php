@@ -2,9 +2,9 @@
 
 namespace TMS\Http\Requests;
 
-use TMS\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class MemberRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
+class MemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class MemberRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|min:5|max:255',
-            'organization' => 'required|min:5|max:255'
+            'first_name' => 'required|max:255',
+            'organization' => 'required|max:255'
         ];
     }
 
