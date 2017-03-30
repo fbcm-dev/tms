@@ -65,16 +65,10 @@ class MemberCrudController extends CrudController
             'type' => 'Text'
         ]);
 
-        /*$this->crud->addColumn([
+        $this->crud->addColumn([
             'name' => 'created_by', // The db column name
             'label' => "Created By", // Table column heading
             'type' => 'Text'
-        ]);*/
-
-        $this->crud->addColumn([ // n-n relationship (with pivot table)
-            'label'     => 'Created By', // Table column heading
-            'type'      => 'Text',
-            'name'      => 'id', // the method that defines the relationship in your Model
         ]);
 
         //$this->crud->setLabel('first_name', 'Name');
