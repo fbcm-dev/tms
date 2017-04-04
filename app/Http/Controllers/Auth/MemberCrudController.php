@@ -1,6 +1,6 @@
 <?php
 
-namespace TMS\Http\Controllers\Admin;
+namespace TMS\Http\Controllers\Auth;
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
@@ -31,21 +31,17 @@ class MemberCrudController extends CrudController
 		*/
 
         //$this->crud->setFromDb();
-        $this->crud->addField(
-            [
+        $this->crud->addField([
                 'name'  => 'first_name', // DB column name (will also be the name of the input)
                 'label' => 'Name', // the human-readable label for the input Auth::id()
                 'type'  => 'text' // the field type (text, number, select, checkbox, etc)
-            ]
-        );
+        ]);
 
-        $this->crud->addField(
-            [
+        $this->crud->addField([
                 'name'  => 'organization',
                 'label' => 'Organization',
                 'type'  => 'text'
-            ]
-        );
+        ]);
 
         $this->crud->addColumn([
             'name' => 'code', // The db column name
@@ -143,8 +139,6 @@ class MemberCrudController extends CrudController
 	    $this->crud->hasAccessOrFail('create');
         $redirect_location = parent::storeCrud();
         return $redirect_location;
-
-
 	}
 
 	public function update(UpdateRequest $request)

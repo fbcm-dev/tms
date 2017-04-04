@@ -20,7 +20,7 @@ Route::get('/home', function () {
     return redirect('/admin');
 });
 
-Route::group(['prefix' => config('backpack.base.route_prefix')], function () {
+Route::group(['prefix' => config('backpack.base.route_prefix'), 'middleware' => ['admin'] ], function () {
 
     Route::get('logout', [
         'uses'=> 'Auth\LoginController@logout',
@@ -35,5 +35,6 @@ Route::group(['prefix' => config('backpack.base.route_prefix')], function () {
         'uses' => 'Auth\UserCrudController@store',
     ]);
 
-    CRUD::resource('member', 'Admin\MemberCrudController');
+    CRUD::resource('member', 'Auth\MemberCrudController');
+
 });
