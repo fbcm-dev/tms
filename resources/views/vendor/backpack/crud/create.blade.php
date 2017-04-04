@@ -31,11 +31,11 @@
 		    </div>
 		    <div class="box-body row">
 		      <!-- load the view from the application if it exists, otherwise load the one in the package -->
-		      @if(view()->exists('vendor.backpack.crud.form_content'))
-		      	@include('vendor.backpack.crud.form_content', ['fields' => $crud->getFields('create')])
-		      @else
-		      	@include('crud::form_content', ['fields' => $crud->getFields('create')])
-		      @endif
+				@if(view()->exists('vendor.backpack.crud.form_content'))
+					@include('vendor.backpack.crud.form_content', [ 'fields' => $crud->getFields('create'), 'action' => 'create' ])
+				@else
+					@include('crud::form_content', [ 'fields' => $crud->getFields('create'), 'action' => 'create' ])
+				@endif
 		    </div><!-- /.box-body -->
 		    <div class="box-footer">
 
