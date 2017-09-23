@@ -20,6 +20,9 @@ Route::get('/home', function () {
     return redirect('/admin');
 });
 
+Route::get('/api/member', 'api\MemberController@index')->name('member');
+Route::get('/api/member/{id}', 'api\MemberController@show');
+
 Route::group(['prefix' => config('backpack.base.route_prefix'), 'middleware' => ['admin'] ], function () {
 
     Route::get('logout', [
@@ -36,5 +39,7 @@ Route::group(['prefix' => config('backpack.base.route_prefix'), 'middleware' => 
     ]);
 
     CRUD::resource('member', 'Auth\MemberCrudController');
+
+    CRUD::resource('record', 'Auth\RecordCrudController');
 
 });

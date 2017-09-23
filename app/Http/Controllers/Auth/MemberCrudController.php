@@ -19,8 +19,8 @@ class MemberCrudController extends CrudController
 		| BASIC CRUD INFORMATION
 		|--------------------------------------------------------------------------
 		*/
-        $this->crud->setModel("TMS\Models\Member");
-        $this->crud->setRoute("admin/member");
+        $this->crud->setModel('TMS\Models\Member');
+        $this->crud->setRoute('admin/member');
         $this->crud->setEntityNameStrings('member', 'members');
         $this->crud->enableAjaxTable();
 
@@ -32,7 +32,7 @@ class MemberCrudController extends CrudController
 
         //$this->crud->setFromDb();
         $this->crud->addField([
-                'name'  => 'first_name', // DB column name (will also be the name of the input)
+                'name'  => 'name', // DB column name (will also be the name of the input)
                 'label' => 'Name', // the human-readable label for the input Auth::id()
                 'type'  => 'text' // the field type (text, number, select, checkbox, etc)
         ]);
@@ -44,13 +44,19 @@ class MemberCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
+            'name' => 'id', // The db column name
+            'label' => "Member ID", // Table column heading
+            'type' => 'Text'
+        ]);
+
+        $this->crud->addColumn([
             'name' => 'code', // The db column name
             'label' => "Code", // Table column heading
             'type' => 'Text'
         ]);
 
         $this->crud->addColumn([
-            'name' => 'first_name', // The db column name
+            'name' => 'name', // The db column name
             'label' => "Name", // Table column heading
             'type' => 'Text'
         ]);
@@ -143,6 +149,7 @@ class MemberCrudController extends CrudController
 
 	public function update(UpdateRequest $request)
 	{
+        $this->crud->hasAccessOrFail('update');
 		// your additional operations before save here
         $redirect_location = parent::updateCrud();
         // your additional operations after save here

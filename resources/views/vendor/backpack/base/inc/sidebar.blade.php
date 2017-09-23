@@ -30,6 +30,7 @@
 					</ul>
 			  	</li>
 				<li><a href="{{ url('admin/member') }}"><i class="fa fa-tag"></i> <span>Manage Members</span></a></li>
+				<li><a href="{{ url('admin/record') }}"><i class="fa fa-tag"></i> <span>Manage Tithes and Offerings</span></a></li>
 
 			  	<!-- ======================================= -->
 			  	<li class="header">{{ trans('backpack::base.user') }}</li>

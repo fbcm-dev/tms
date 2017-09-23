@@ -21,7 +21,7 @@ class Member extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'code', 'first_name', 'organization', 'created_by'
+        'code', 'name', 'organization', 'created_by'
     ];
 
     /*
@@ -39,7 +39,7 @@ class Member extends Model
      */
     protected function generateMemberCode($name = null)
     {
-        if ($name == null) $name = $this->first_name;
+        if ($name == null) $name = $this->name;
 
         $expFirstName = explode(' ', $name);
         $last_name = end($expFirstName);
@@ -61,6 +61,11 @@ class Member extends Model
 	|--------------------------------------------------------------------------
 	*/
 
+    public function member()
+    {
+        return $this->hasMany('TMS\Models\Record');
+    }
+
     /*
 	|--------------------------------------------------------------------------
 	| SCOPES
@@ -78,6 +83,10 @@ class Member extends Model
 	| MUTATORS
 	|--------------------------------------------------------------------------
 	*/
+
+    public function setEncodedByAttribute(){
+        $this->attributes['encoded_by'] = Auth::user()->id;
+    }
 
     public function setCodeAttribute(){
         $this->attributes['code'] = $this->generateMemberCode();

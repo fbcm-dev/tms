@@ -2,9 +2,10 @@
 
 namespace TMS\Http\Requests;
 
+use TMS\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MemberRequest extends FormRequest
+class RecordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +26,7 @@ class MemberRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'organization' => 'required|max:255'
+            // 'name' => 'required|min:5|max:255'
         ];
     }
 
