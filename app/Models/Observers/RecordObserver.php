@@ -10,7 +10,7 @@ namespace TMS\Models\Observers;
 
 use TMS\Models\Record;
 
-class RecordsObserver
+class RecordObserver
 {
     public function created(Record $record){}
 

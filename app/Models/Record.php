@@ -19,8 +19,10 @@ class Record extends Model
 
     protected $table = 'records';
     protected $primaryKey = 'id';
+
     public $timestamps = true;
     // protected $guarded = ['id'];
+
      protected $fillable = [
          'member_id',
          'service_type',
@@ -31,12 +33,13 @@ class Record extends Model
          'love_amnt',
          'special_offering',
          'special_offering_details',
-         'encoded_by',
-         'verified_by',
+         'created_by',
+         'updated_by',
      ];
      // protected $hidden = [];
+
      protected $dates = [
-         'encoded_at', 'verified_at'
+         'created_at', 'updated_at'
      ];
 
     /*
@@ -74,11 +77,11 @@ class Record extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function setEncodedByAttribute(){
-        $this->attributes['encoded_by'] = Auth::user()->id;
+    public function setCreatedByAttribute(){
+        $this->attributes['created_by'] = Auth::user()->id;
     }
 
-    public function setVerifiedByAttribute(){
-        $this->attributes['verified_by'] = Auth::user()->id;
+    public function setUpdatedByAttribute(){
+        $this->attributes['updated_by'] = Auth::user()->id;
     }
 }

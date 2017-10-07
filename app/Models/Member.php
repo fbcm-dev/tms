@@ -84,10 +84,6 @@ class Member extends Model
 	|--------------------------------------------------------------------------
 	*/
 
-    public function setEncodedByAttribute(){
-        $this->attributes['encoded_by'] = Auth::user()->id;
-    }
-
     public function setCodeAttribute(){
         $this->attributes['code'] = $this->generateMemberCode();
     }
