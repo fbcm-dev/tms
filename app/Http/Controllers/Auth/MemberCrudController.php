@@ -73,6 +73,12 @@ class MemberCrudController extends CrudController
             'type' => 'Text'
         ]);
 
+        $this->crud->addColumn([
+            'name' => 'created_by', // The db column name
+            'label' => "Created By", // Table column heading
+            'type' => 'Text'
+        ]);
+
         //$this->crud->setLabel('first_name', 'Name');
         //$this->crud->setLabel('organization', 'Organization');
         // ------ CRUD FIELDS

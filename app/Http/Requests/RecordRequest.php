@@ -26,7 +26,11 @@ class RecordRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'min:5|max:255',
+            'for_date' => 'required|before:'.date('m/d/Y', strtotime("+1 day")),
+            'tithe_amnt' => 'numeric|nullable|min:0',
+            'faith_amnt' => 'numeric|nullable|min:0',
+            'love_amnt' => 'numeric|nullable|min:0'
         ];
     }
 
@@ -38,7 +42,10 @@ class RecordRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'for_date' => 'worship service date',
+            'tithe_amnt' => 'tithe amount',
+            'faith_amnt' => 'faith amount',
+            'love_amnt' => 'faith amount'
         ];
     }
 

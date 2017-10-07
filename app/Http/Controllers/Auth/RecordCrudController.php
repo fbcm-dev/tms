@@ -7,7 +7,6 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use TMS\Http\Requests\RecordRequest as StoreRequest;
 use TMS\Http\Requests\RecordRequest as UpdateRequest;
-use TMS\Http\Requests\RecordRequest as DestroyRequest;
 
 class RecordCrudController extends CrudController
 {
@@ -39,27 +38,13 @@ class RecordCrudController extends CrudController
                 'name' => 'member_id', // the db column for the foreign key
                 'entity' => 'records', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
-                'allows_null' => true,
                 'model' => 'TMS\Models\Member' // foreign key model
-            ],
 
-            /*[
-                // 1-n relationship
-                'label' => "End", // Table column heading
-                'type' => "select2_from_ajax",
-                'name' => 'member_id', // the column that contains the ID of that connected entity
-                'entity' => 'records', // the method that defines the relationship in your Model
-                'attribute' => "name", // foreign key attribute that is shown to user
-                'model' => "TMS\Models\Member", // foreign key model
-                'data_source' => url("api/member"), // url to controller search function (with /{id} should return model)
-                'placeholder' => "Select a category", // placeholder for the select
-                'minimum_input_length' => 1, // minimum characters to type before querying results
-            ],*/
-
-            [
+            ], [
                 'name'  => 'service_type',
                 'label' => 'Worship Service Type',
                 'type'  => 'enum'
+
             ], [
                 'name'  => 'for_date',
                 'label' => 'Worship Service Date',
@@ -68,34 +53,36 @@ class RecordCrudController extends CrudController
                     'format' => 'MM/DD/YYYY',
                     'language' => 'en'
                 ]
+
             ], [
                 'name'  => 'status',
                 'label' => 'Status',
-                'type' => 'text',
+                'type' => 'enum',
+
             ], [
                 'name'  => 'tithe_amnt',
                 'label' => 'Tithe Amount',
                 'type' => 'number',
                 'prefix' => "&#8369",
-                'suffix' => ".00",
+
             ], [
                 'name'  => 'faith_amnt',
                 'label' => 'Faith Amount',
                 'type' => 'number',
                 'prefix' => "&#8369",
-                'suffix' => ".00",
+
             ], [
                 'name'  => 'love_amnt',
                 'label' => 'Love Amount',
                 'type' => 'number',
                 'prefix' => "&#8369",
-                'suffix' => ".00",
+
             ], [
                 'name'  => 'special_offering',
                 'label' => 'Special Offering Amount',
-                'type' => 'number',
+                'type' => 'text',
                 'prefix' => "&#8369",
-                'suffix' => ".00",
+
             ], [
                 'name'  => 'special_offering_details',
                 'label' => 'Special Offering Details',
@@ -134,26 +121,14 @@ class RecordCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'encoded_by', // The db column name
-            'label' => "Encoded by", // Table column heading
+            'name' => 'created_by', // The db column name
+            'label' => "Created by", // Table column heading
             'type' => 'Text'
         ]);
 
         $this->crud->addColumn([
-            'name' => 'encoded_at', // The db column name
-            'label' => "Date Encoded", // Table column heading
-            'type' => 'Text'
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'verified_by', // The db column name
-            'label' => "Verified by", // Table column heading
-            'type' => 'Text'
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'verified_at', // The db column name
-            'label' => "Date Verified", // Table column heading
+            'name' => 'updated_by', // The db column name
+            'label' => "Updated by", // Table column heading
             'type' => 'Text'
         ]);
 
