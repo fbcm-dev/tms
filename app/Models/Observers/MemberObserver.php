@@ -16,6 +16,6 @@ class MemberObserver
 
     public function creating(Member $member){
        $member->setCodeAttribute();
-       $member->setCreatedByAttribute();
+       $member->setCreatedByAttribute(); //test
     }
 }
