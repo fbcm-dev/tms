@@ -132,7 +132,6 @@ class RecordCrudController extends CrudController
             'type' => 'Text'
         ]);
 
-
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
@@ -198,6 +197,10 @@ class RecordCrudController extends CrudController
         // $this->crud->orderBy();
         // $this->crud->groupBy();
         // $this->crud->limit();
+    }
+
+    public function showDetailsRow($id){
+
     }
 
     public function store(StoreRequest $request)

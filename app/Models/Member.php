@@ -41,11 +41,11 @@ class Member extends Model
     {
         if ($name == null) $name = $this->name;
 
-        $expFirstName = explode(' ', $name);
-        $last_name = end($expFirstName);
+        $expName = explode(' ', $name);
+        $last_name = end($expName);
         $nameInitial = $last_name;
 
-        foreach ($expFirstName as $key) {
+        foreach ($expName as $key) {
             if($key != $last_name){
                 $tempNameInitial = substr($key, 0, 1);
                 $nameInitial .= $tempNameInitial;
